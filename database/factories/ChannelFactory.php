@@ -3,9 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
-class UserFactory extends Factory
+class ChannelFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,11 +14,9 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name'              => $this->faker->name(),
-            'email'             => $this->faker->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password'          => $password = bcrypt('password'), // password
-            'remember_token'    => Str::random(10),
+            'user_id'     => $this->faker->name(),
+            'name'        => ucfirst($this->faker->words(2, true)),
+            'description' => $this->faker->sentences(2, true),
         ];
     }
 
@@ -28,11 +25,11 @@ class UserFactory extends Factory
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
      */
-    public function unverified()
+    public function isPasswordProtected()
     {
         return $this->state(function (array $attributes) {
             return [
-                'email_verified_at' => null,
+                'password' => bcrypt('password'),
             ];
         });
     }

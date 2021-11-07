@@ -6,5 +6,6 @@ Route::post('login', 'App\Http\Controllers\API\Auth\LoginController@login')->nam
 Route::post('register', 'App\Http\Controllers\API\Auth\RegisterController@register')->name('register');
 
 Route::middleware(['auth:api'])->group(function () {
+    Route::get('whoami', 'App\Http\Controllers\API\Auth\LoginController@whoAmI')->name('whoami');
     Route::post('logout', 'App\Http\Controllers\API\Auth\LoginController@logout')->name('logout');
 });

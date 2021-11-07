@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\API\Auth;
 
+use App\Models\User;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\RegisterRequest;
-use App\Models\User;
 
 class RegisterController extends Controller
 {
@@ -24,6 +25,6 @@ class RegisterController extends Controller
             'message' => 'You are successfully signed in.',
             'user'    => $user,
             'token'   => $token
-        ], 200);
+        ], Response::HTTP_OK);
     }
 }

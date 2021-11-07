@@ -31,6 +31,23 @@ class Channel extends Model
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['is_password_protected'];
+
+    /**
+     * Assess if channels is password protected.
+     *
+     * @var bool
+     */
+    public function getIsPasswordProtectedAttribute()
+    {
+        return !empty($this->attributes['password']);
+    }
+
+    /**
      * Get the user that owns the Channel
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

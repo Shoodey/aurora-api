@@ -17,6 +17,6 @@ $API_VERSION = config('api.version');
 
 Route::prefix($API_VERSION)->group(function () {
     Route::prefix('auth')->group(base_path('routes/api/auth.php'));
-    // Route::prefix('users')->group(base_path('routes/api/users.php'));
-    // Route::prefix('channels')->group(base_path('routes/api/channels.php'));
+    Route::prefix('')->group(base_path('routes/api/users.php'));
+    Route::prefix('')->group(base_path('routes/api/channels.php'));
 });

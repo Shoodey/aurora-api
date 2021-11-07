@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\LoginRequest;
+use Illuminate\Http\Response;
 
 class LoginController extends Controller
 {
@@ -22,10 +23,21 @@ class LoginController extends Controller
             return response()->json([
                 'message' => 'You have successfully logged in.',
                 'token'   => $token
-            ], 200);
+            ], Response::HTTP_OK);
         } else {
-            return response()->json(['error' => 'These credentials do not match any records.'], 401);
+            return response()->json([
+                'error' => 'These credentials do not match any records.'
+            ], Response::HTTP_BAD_REQUEST);
         }
+    }
+
+    public function whoAmI(Request $request)
+    {
+        $user = $request->user();
+
+        return response()->json([
+            'user' => $user
+        ], Response::HTTP_OK);
     }
 
     public function logout(Request $request)
@@ -37,7 +49,7 @@ class LoginController extends Controller
 
         return response()->json([
             'message' => 'Successfully logged out from this device.'
-        ], 200);
+        ], Response::HTTP_OK);
     }
 
     public function logoutFromAllDevices(Request $request)
@@ -52,6 +64,6 @@ class LoginController extends Controller
 
         return response()->json([
             'message' => 'Successfully logged out from all devices.'
-        ], 200);
+        ], Response::HTTP_OK);
     }
 }

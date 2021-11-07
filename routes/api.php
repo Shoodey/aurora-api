@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+$API_VERSION = config('api.version');
+
+Route::prefix($API_VERSION)->group(function () {
+    Route::prefix('auth')->group(base_path('routes/api/auth.php'));
+    // Route::prefix('users')->group(base_path('routes/api/users.php'));
+    // Route::prefix('channels')->group(base_path('routes/api/channels.php'));
 });

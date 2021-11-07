@@ -49,8 +49,16 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response([
+                'message' => 'Resource could not be found.'
+            ])->setStatusCode(Response::HTTP_NOT_FOUND);
+        }
+
         return (new UserResource($user->load('channels')))->response();
     }
 

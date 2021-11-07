@@ -50,8 +50,16 @@ class ChannelController extends Controller
      * @param  \App\Models\Channel  $channel
      * @return \Illuminate\Http\Response
      */
-    public function show(Channel $channel)
+    public function show($id)
     {
+        $channel = Channel::find($id);
+
+        if (!$channel) {
+            return response([
+                'message' => 'Resource could not be found.'
+            ])->setStatusCode(Response::HTTP_NOT_FOUND);
+        }
+
         return (new ChannelResource($channel->load('user')))->response();
     }
 
